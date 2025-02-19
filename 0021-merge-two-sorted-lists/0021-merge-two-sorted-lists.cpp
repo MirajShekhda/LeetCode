@@ -17,29 +17,36 @@ public:
         if(list2==nullptr){
             return list1;
         }
-        ListNode* ans = list1;
-        if(list1->val > list2->val){
-            ans = list2;
-            list2 = list2->next;
+        // ListNode* ans = list1;
+        // if(list1->val > list2->val){
+        //     ans = list2;
+        //     list2 = list2->next;
+        // }else{
+        //     list1 = list1->next;
+        // }
+        // ListNode* temp = ans;
+        // while(list1 && list2){
+        //     if(list1->val < list2->val){
+        //         temp->next = list1;
+        //         list1 = list1->next;
+        //     }else{
+        //         temp->next = list2;
+        //         list2 = list2->next;
+        //     }
+        //     temp = temp->next;
+        // }
+        // if(list1==nullptr){
+        //     temp->next = list2;
+        // }else{
+        //     temp->next = list1;
+        // }
+        // return ans;
+        if(list1->val < list2->val){
+            list1->next = mergeTwoLists(list1->next,list2);
+            return list1;
         }else{
-            list1 = list1->next;
+            list2->next = mergeTwoLists(list1,list2->next);
+            return list2;
         }
-        ListNode* temp = ans;
-        while(list1 && list2){
-            if(list1->val < list2->val){
-                temp->next = list1;
-                list1 = list1->next;
-            }else{
-                temp->next = list2;
-                list2 = list2->next;
-            }
-            temp = temp->next;
-        }
-        if(list1==nullptr){
-            temp->next = list2;
-        }else{
-            temp->next = list1;
-        }
-        return ans;
     }
 };
