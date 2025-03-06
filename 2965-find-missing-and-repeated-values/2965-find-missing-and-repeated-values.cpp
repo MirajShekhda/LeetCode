@@ -2,26 +2,23 @@ class Solution {
 public:
     vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
         int n = grid.size();
-        int N = n*n;
-        unordered_map<int,int> hash;
+        long long N = n*n;
         int a=-1;
         int b=-1;
+        long long sumG =0;
+        long long sqG =0;
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
-                hash[grid[i][j]]++;
+                sumG += grid[i][j];
+                sqG += grid[i][j]*grid[i][j]; 
             }
         }
-        for(int i=1; i<=N; i++){
-            if(hash[i]==2){
-                a = i;
-            }
-            if(hash[i]==0){
-                b = i;
-            }
-            if(a!=-1 && b!=-1){
-                break;
-            }
-        }
+        long long sum = (N*(N+1))/2;
+        long long sqsum = (N*(N+1)*(2*N+1))/6;
+
+        b = ((sum - sumG)+((sqsum-sqG)/(sum - sumG)))/2;
+        a = sumG + b - sum;
+
         return {a,b};
     }
 };
