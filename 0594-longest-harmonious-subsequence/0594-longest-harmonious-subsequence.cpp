@@ -1,22 +1,13 @@
 class Solution {
 public:
-    int findLHS(vector<int>& nums) {
-        unordered_map<int,int> freq;
-        int n = nums.size();
-        if(n==1){
-            return 0;
-        }
-        for(auto x : nums){
-            freq[x] += 1;
-        }
-        if(freq.size()==1){
-            return 0;
-        }
-        int maxLen = 0;
-        for(auto& [x,f] : freq){
-            if(freq.count(x-1)){
-                maxLen  = max(maxLen, f+freq[x-1]);
-            }
+    static int findLHS(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(), nums.end());
+        int maxLen=0;
+        for(int l=0, r=0; r<n; r++){
+            int x=nums[r];
+            while(l<r && nums[l]<x-1) l++;
+            if (nums[l]==x-1) maxLen=max(maxLen, r-l+1);
         }
         return maxLen;
     }
